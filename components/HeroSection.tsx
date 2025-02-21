@@ -91,14 +91,14 @@ const HeroSection = () => {
               <div className="space-y-2">
                 <h1 className="text-4xl font-bold tracking-tight">Guhyun Chung</h1>
                 <p className="text-base text-zinc-400 font-medium max-w-lg">
-                  Full Stack Developer & Esports General Manager
+                  Full Stack Developer &amp; Esports General Manager
                 </p>
               </div>
 
               <div className="space-y-8">
                 <p className="text-sm text-zinc-400 leading-relaxed max-w-lg">
                   Bridging technology and competitive gaming through innovative solutions. Focused on creating impactful
-                  digital experiences that push the boundaries of what's possible in tech and esports.
+                  digital experiences that push the boundaries of what&apos;s possible in tech and esports.
                 </p>
 
                 <div className="flex items-center space-x-3">

@@ -22,7 +22,7 @@ const ContactSection = () => {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4 text-white">Get in Touch</h2>
           <p className="text-blue-100 max-w-2xl mx-auto">
-            Have a question or want to work together? Drop me a line and I'll get back to you as soon as possible.
+            Have a question or want to work together? Drop me a line and I&apos;ll get back to you as soon as possible.
           </p>
         </div>
 

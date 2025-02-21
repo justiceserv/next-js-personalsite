@@ -76,7 +76,7 @@ const ProjectSection = () => {
         <div className="flex items-center justify-between mb-12">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Featured Projects</h2>
-            <p className="mt-2 text-zinc-400">Some of the projects I've worked on</p>
+            <p className="mt-2 text-zinc-400">Some of the projects I&apos;ve worked on</p>
           </div>
           <a
             href="/projects"

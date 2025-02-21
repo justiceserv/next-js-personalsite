@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Image from 'next/image'
 
 const CompanyLogos = () => {
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -27,35 +28,35 @@ const CompanyLogos = () => {
 
   const logos = [
     {
-      src: "https://cdn.prod.website-files.com/6793f5bd8158c3d139f4b7a6/67941f364f95e86b907a031a_Cloudflare_Logo.svg",
+      src: "/logos/Cloudflare_Logo.svg",
       alt: "Cloudflare",
     },
     {
-      src: "https://cdn.prod.website-files.com/6793f5bd8158c3d139f4b7a6/679419e0ea571dd52398273d_4096_rect.svg",
+      src: "/logos/4096_rect.svg",
       alt: "4096",
     },
     {
-      src: "https://cdn.prod.website-files.com/6793f5bd8158c3d139f4b7a6/67940bb5ecf3e86864ae704d_netease-games-logo-brandlogos.net_2c92375l0.svg",
+      src: "/logos/NetEase_Logo.svg",
       alt: "NetEase Games",
     },
     {
-      src: "https://cdn.prod.website-files.com/6793f5bd8158c3d139f4b7a6/67940c46d144d49b1755f34c_blizzard_ent_logo.svg",
+      src: "/logos/Blizzard_Ent_Logo.svg",
       alt: "Blizzard Entertainment",
     },
     {
-      src: "https://cdn.prod.website-files.com/6793f5bd8158c3d139f4b7a6/67940d1f97780011603bd217_PUBG_Studios.svg",
+      src: "/logos/PUBG_Studios.svg",
       alt: "PUBG Studios",
     },
     {
-      src: "https://cdn.prod.website-files.com/6793f5bd8158c3d139f4b7a6/67940dc70e9c9c1a7788c91c_Ubisoft_Logo.svg",
+      src: "/logos/Ubisoft_Logo.svg",
       alt: "Ubisoft",
     },
     {
-      src: "https://cdn.prod.website-files.com/6793f5bd8158c3d139f4b7a6/67940f40b24733bac1dc0aae_Blast_Tv_Logo.svg",
+      src: "/logos/BlastTV_Logo.svg",
       alt: "BLAST TV",
     },
     {
-      src: "https://cdn.prod.website-files.com/6793f5bd8158c3d139f4b7a6/67941104be3c794a5b3128fd_be4d40e2d90d51f099818cbbca904e1e_Daejeon_Logo.webp",
+      src: "/logos/Daejeon_Logo.webp",
       alt: "Daejeon",
     },
   ]
@@ -72,10 +73,12 @@ const CompanyLogos = () => {
             <div className="flex animate-scroll whitespace-nowrap">
               {[...logos, ...logos].map((logo, index) => (
                 <div key={index} className="flex-shrink-0 px-12">
-                  <img
+                  <Image
                     src={logo.src || "/placeholder.svg"}
                     alt={logo.alt}
-                    className="h-8 w-auto object-contain opacity-50 max-w-[120px] grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                    width={120}
+                    height={32}
+                    className="h-8 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                   />
                 </div>
               ))}
