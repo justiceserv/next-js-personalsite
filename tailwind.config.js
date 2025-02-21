@@ -5,7 +5,6 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -18,7 +17,6 @@ module.exports = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          400: "#3399FF",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -45,8 +43,11 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      backgroundImage: {
-        "gradient-primary": "linear-gradient(45deg, #3399FF, #66B2FF)",
+      gridTemplateColumns: {
+        '52': 'repeat(52, minmax(0, 1fr))',
+      },
+      gridTemplateRows: {
+        '7': 'repeat(7, minmax(0, 1fr))',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -56,5 +57,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
-
+} 
