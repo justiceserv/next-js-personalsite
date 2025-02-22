@@ -60,7 +60,7 @@ const ProjectSection = () => {
       }, 500)
       return () => clearTimeout(timer)
     }
-  }, [isTransitioning, currentIndex, projects.length])
+  }, [isTransitioning, currentIndex])
 
   const slideProjects = (direction: "next" | "prev") => {
     if (isTransitioning) return
