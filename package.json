@@ -1,11 +1,11 @@
 {
   "name": "personal-website",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 2342 --host 127.0.0.1",
     "lint": "next lint"
   },
   "dependencies": {
@@ -34,5 +34,19 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
-  }
+  },
+  "description": "Justiceserv's Personal Website built with NextJS",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justiceserv/next-js-personalsite.git"
+  },
+  "author": "Justiceserv",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/justiceserv/next-js-personalsite/issues"
+  },
+  "homepage": "https://github.com/justiceserv/next-js-personalsite#readme"
 }
