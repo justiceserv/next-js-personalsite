@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { Terminal, GitBranch } from "lucide-react"
+import { Terminal, GitBranch, Code, Star, GitFork, Clock, Activity, Zap } from "lucide-react"
 
 const StatsSection = () => {
   const [contributions, setContributions] = useState<number[][]>([])
@@ -153,24 +153,101 @@ const StatsSection = () => {
                 <Terminal className="w-5 h-5 text-zinc-400" />
                 <h3 className="text-lg font-medium">Contribution Stats</h3>
               </div>
-              <div className="flex-grow flex flex-col justify-between">
-                <div className="space-y-8">
-                  <div>
-                    <p className="text-4xl font-bold">8.2</p>
-                    <p className="text-sm text-zinc-400">daily average commits</p>
+              
+              <div className="grid grid-cols-2 gap-6 mb-8">
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2 text-zinc-400">
+                    <Code className="w-4 h-4" />
+                    <span className="text-sm">Commits</span>
                   </div>
-                  <div>
-                    <p className="text-4xl font-bold">2,847</p>
-                    <p className="text-sm text-zinc-400">total contributions</p>
+                  <p className="text-2xl font-bold">8.2</p>
+                  <p className="text-xs text-zinc-500">daily average</p>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2 text-zinc-400">
+                    <Activity className="w-4 h-4" />
+                    <span className="text-sm">Contributions</span>
                   </div>
-                  <div>
-                    <p className="text-4xl font-bold">342</p>
-                    <p className="text-sm text-zinc-400">longest streak</p>
+                  <p className="text-2xl font-bold">2,847</p>
+                  <p className="text-xs text-zinc-500">this year</p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2 text-zinc-400">
+                    <Clock className="w-4 h-4" />
+                    <span className="text-sm">Streak</span>
                   </div>
-                  <div>
-                    <p className="text-4xl font-bold">127</p>
-                    <p className="text-sm text-zinc-400">repositories contributed</p>
+                  <p className="text-2xl font-bold">342</p>
+                  <p className="text-xs text-zinc-500">days</p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2 text-zinc-400">
+                    <GitBranch className="w-4 h-4" />
+                    <span className="text-sm">Repositories</span>
                   </div>
+                  <p className="text-2xl font-bold">127</p>
+                  <p className="text-xs text-zinc-500">contributed</p>
+                </div>
+              </div>
+
+              {/* 추가 통계 */}
+              <div className="space-y-4 border-t border-zinc-800 pt-6">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center space-x-2 text-zinc-400">
+                    <Star className="w-4 h-4" />
+                    <span className="text-sm">Stars Earned</span>
+                  </div>
+                  <p className="text-lg font-semibold">1.2k</p>
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center space-x-2 text-zinc-400">
+                    <GitFork className="w-4 h-4" />
+                    <span className="text-sm">Total Forks</span>
+                  </div>
+                  <p className="text-lg font-semibold">486</p>
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center space-x-2 text-zinc-400">
+                    <Zap className="w-4 h-4" />
+                    <span className="text-sm">Lines Changed</span>
+                  </div>
+                  <p className="text-lg font-semibold">142.5k</p>
+                </div>
+              </div>
+
+              {/* 최근 활동 시간대 */}
+              <div className="border-t border-zinc-800 mt-6 pt-6">
+                <h4 className="text-sm font-medium mb-4">Active Hours</h4>
+                <div className="h-24 flex items-end space-x-1">
+                  {Array.from({ length: 24 }).map((_, i) => {
+                    const height = Math.random() * 100;
+                    return (
+                      <div
+                        key={i}
+                        className="flex-1 bg-emerald-500/20 hover:bg-emerald-300 rounded-sm transition-all duration-300 cursor-pointer group relative"
+                        style={{
+                          height: `${height}%`,
+                        }}
+                      >
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                          <div className="bg-zinc-800 text-zinc-200 text-xs px-2 py-1 rounded shadow-lg">
+                            {`${i}:00 - ${i + 1}:00`}
+                            <br />
+                            {`${Math.round(height)}% activity`}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="flex justify-between mt-2 text-xs text-zinc-500">
+                  <span>12 AM</span>
+                  <span>12 PM</span>
+                  <span>11 PM</span>
                 </div>
               </div>
             </div>

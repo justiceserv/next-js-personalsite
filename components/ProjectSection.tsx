@@ -44,13 +44,14 @@ const ProjectSection = () => {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const sliderRef = useRef<HTMLDivElement>(null)
 
-  // 프로젝트 배열을 확장하여 양 끝에 추가 프로젝트를 배치
-  const projectsToShow = [...projects.slice(-3), ...projects, ...projects.slice(0, 3)]
+  // 무한 슬라이드를 위해 앞뒤로 프로젝트 복제
+  const extendedProjects = [...projects, ...projects, ...projects]
 
   useEffect(() => {
     if (isTransitioning) {
       const timer = setTimeout(() => {
         setIsTransitioning(false)
+        // 끝에 도달했을 때 자연스럽게 처음으로 돌아가기
         if (currentIndex >= projects.length) {
           setCurrentIndex(0)
         } else if (currentIndex < 0) {
@@ -59,14 +60,15 @@ const ProjectSection = () => {
       }, 500)
       return () => clearTimeout(timer)
     }
-  }, [isTransitioning, currentIndex])
+  }, [isTransitioning, currentIndex, projects.length])
 
   const slideProjects = (direction: "next" | "prev") => {
+    if (isTransitioning) return
     setIsTransitioning(true)
     if (direction === "next") {
-      setCurrentIndex((prev) => (prev + 3) % projects.length)
+      setCurrentIndex((prev) => prev + 1)
     } else {
-      setCurrentIndex((prev) => (prev - 3 + projects.length) % projects.length)
+      setCurrentIndex((prev) => prev - 1)
     }
   }
 
@@ -87,20 +89,23 @@ const ProjectSection = () => {
           </a>
         </div>
 
-        <div className="relative mx-[-2rem]">
-          <div className="overflow-hidden px-8">
+        <div className="relative">
+          <div className="overflow-hidden">
             <div
               ref={sliderRef}
-              className="flex gap-6 transition-transform duration-500 ease-in-out"
+              className="flex transition-transform duration-500 ease-in-out"
               style={{
-                transform: `translateX(calc(-${currentIndex * 33.33}% - ${currentIndex * 1.5}rem))`,
+                transform: `translateX(-${(currentIndex + projects.length) * 33.333}%)`,
               }}
             >
-              {projectsToShow.map((project, index) => (
-                <div key={index} style={{ width: "calc(33.33% - 1rem)" }} className="flex-shrink-0">
+              {extendedProjects.map((project, index) => (
+                <div 
+                  key={index} 
+                  className="w-1/3 flex-shrink-0 px-3"
+                >
                   <a
                     href={project.link}
-                    className="group relative flex flex-col bg-zinc-900 rounded-lg overflow-hidden border border-zinc-800 hover:border-zinc-700 transition-colors"
+                    className="group relative flex flex-col bg-zinc-900 rounded-lg overflow-hidden border border-zinc-800 hover:border-zinc-700 transition-colors h-full"
                   >
                     <div className="relative h-48 overflow-hidden">
                       <Image
@@ -114,7 +119,9 @@ const ProjectSection = () => {
                       <h3 className="text-lg font-semibold group-hover:text-blue-400 transition-colors">
                         {project.title}
                       </h3>
-                      <p className="mt-2 text-sm text-zinc-400 line-clamp-2">{project.description}</p>
+                      <p className="mt-2 text-sm text-zinc-400 line-clamp-2">
+                        {project.description}
+                      </p>
                       <div className="flex flex-wrap gap-2 mt-4">
                         {project.tags.map((tag, tagIndex) => (
                           <span
@@ -132,17 +139,16 @@ const ProjectSection = () => {
             </div>
           </div>
 
-          {/* Navigation Buttons */}
           <button
             onClick={() => slideProjects("prev")}
-            className="absolute left-8 top-1/2 -translate-y-1/2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-full p-2 transition-colors"
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 text-white rounded-full p-3 backdrop-blur-sm border border-zinc-800 shadow-lg transition-all hover:scale-110 z-10"
             aria-label="Previous projects"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={() => slideProjects("next")}
-            className="absolute right-8 top-1/2 -translate-y-1/2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-full p-2 transition-colors"
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 text-white rounded-full p-3 backdrop-blur-sm border border-zinc-800 shadow-lg transition-all hover:scale-110 z-10"
             aria-label="Next projects"
           >
             <ChevronRight className="w-6 h-6" />
