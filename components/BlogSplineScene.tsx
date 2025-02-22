@@ -42,8 +42,7 @@ const BlogSplineScene: React.FC<BlogSplineSceneProps> = ({ className }) => {
                         width: 100% !important;
                         height: 100% !important;
                         opacity: 1 !important;
-                        transform: scale(2);
-                        object-fit: cover;
+                        object-fit: cover !important;
                     }
                 `
                 viewer.shadowRoot.appendChild(style)
@@ -67,7 +66,7 @@ const BlogSplineScene: React.FC<BlogSplineSceneProps> = ({ className }) => {
             {/* @ts-expect-error Non Typescript Component */}
             <spline-viewer
                 loading-anim-type="none"
-                url="https://prod.spline.design/gKlxZP75ZA1NTPbO/scene.splinecode"
+                url="https://prod.spline.design/xOaXjFf2mLTx70RR/scene.splinecode"
                 style={{
                     width: "100%",
                     height: "100%",
