@@ -24,7 +24,7 @@ const StatsSection = () => {
   }, [])
 
   return (
-    <section className="relative py-24">
+    <section className="pt-8 md:pt-24">
       <div className="container mx-auto px-6 md:px-12 max-w-[1400px]">
         <div className="flex flex-col md:flex-row gap-8 min-h-[600px]">
           {/* Left Column */}
@@ -55,9 +55,9 @@ const StatsSection = () => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-52 gap-0.5">
+              <div className="contributions-grid grid grid-cols-[repeat(auto-fit,minmax(10px,1fr))] md:grid-cols-52 gap-1 md:gap-0.5 w-full max-w-full overflow-x-auto">
                 {contributions.map((week, i) => (
-                  <div key={i} className="grid grid-rows-7 gap-0.5">
+                  <div key={i} className="grid grid-rows-7 gap-1 md:gap-0.5">
                     {week.map((day, j) => (
                       <motion.div
                         key={`${i}-${j}`}
@@ -88,7 +88,7 @@ const StatsSection = () => {
                 <h3 className="text-lg font-medium">Most Active Repo</h3>
               </div>
               <div className="space-y-6">
-                <div className="flex justify-between items-start">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 md:gap-0">
                   <div>
                     <p className="text-xl font-semibold">personal-website</p>
                     <p className="text-sm text-zinc-400 mt-1">Personal portfolio website built with Next.js</p>
@@ -98,16 +98,16 @@ const StatsSection = () => {
                       <span className="text-xs px-2 py-1 border border-zinc-800 rounded-full">Tailwind</span>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-6 text-zinc-400">
-                    <div className="text-right">
+                  <div className="grid grid-cols-3 md:flex md:items-center md:space-x-6 text-zinc-400">
+                    <div className="text-center md:text-right">
                       <p className="text-sm font-medium">847</p>
                       <p className="text-xs">commits</p>
                     </div>
-                    <div className="text-right">
+                    <div className="text-center md:text-right">
                       <p className="text-sm font-medium">156</p>
                       <p className="text-xs">stars</p>
                     </div>
-                    <div className="text-right">
+                    <div className="text-center md:text-right">
                       <p className="text-sm font-medium">24</p>
                       <p className="text-xs">PRs</p>
                     </div>

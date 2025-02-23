@@ -99,12 +99,12 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         url={currentUrl}
       />
       
-      {/* 헤더 섹션 */}
-      <header className="pt-40 pb-20">
+      {/* 헤더 섹션 - 모바일 여백 더 줄임 */}
+      <header className="pt-20 md:pt-40 pb-12 md:pb-20">
         <div className="container mx-auto px-6 md:px-12 max-w-[1400px]">
           <div className="max-w-4xl mx-auto">
             {/* 뒤로가기 & 공유 버튼 */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-6 md:mb-8">
               <Link 
                 href="/blog" 
                 className="flex items-center text-sm text-zinc-400 hover:text-white transition-colors"

@@ -161,7 +161,134 @@ const ServerList = () => {
                     </div>
                 </div>
 
-                <div className="flex gap-6">
+                {/* 모바일: 스택 레이아웃 */}
+                <div className="md:hidden space-y-3">
+                    {servers.map((server) => (
+                        <button
+                            key={server.id}
+                            className={`w-full p-4 rounded-lg bg-zinc-900/30 border text-left
+                                ${selectedServer?.id === server.id
+                                    ? "border-blue-500/30 bg-blue-500/5"
+                                    : "border-zinc-800 hover:border-zinc-700"} 
+                                transition-all duration-200`}
+                            onClick={() => setSelectedServer(server)}
+                        >
+                            <div className="space-y-3">
+                                <div>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <span className={`w-2 h-2 rounded-full ${getStatusColor(server.status)}`} />
+                                        <h3 className="font-medium">{server.name}</h3>
+                                    </div>
+                                    <div className="space-y-0.5">
+                                        <p className="text-sm text-zinc-400">{server.location}</p>
+                                        <p className="text-xs text-zinc-500">{server.datacenter}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    ))}
+
+                    {/* 선택된 서버 상세 정보 */}
+                    {selectedServer && (
+                        <div className="mt-4 rounded-lg bg-zinc-900/30 border border-zinc-800 p-4">
+                            <div className="space-y-4">
+                                {/* 서버 기본 정보 */}
+                                <div className="space-y-1 mb-4">
+                                    <h3 className="text-lg font-medium">{selectedServer.name}</h3>
+                                    <p className="text-sm text-zinc-400">{selectedServer.location} · {selectedServer.datacenter}</p>
+                                </div>
+
+                                {/* 시스템 스펙 */}
+                                <div className="grid grid-cols-2 gap-2">
+                                    <div className="p-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50">
+                                        <h4 className="text-xs text-zinc-400 mb-1">CPU</h4>
+                                        <p className="text-sm font-medium">{selectedServer.cpu.model}</p>
+                                        <p className="text-xs text-zinc-400 mt-1">
+                                            {selectedServer.cpu.cores} cores, {selectedServer.cpu.threads} threads
+                                        </p>
+                                    </div>
+                                    <div className="p-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50">
+                                        <h4 className="text-xs text-zinc-400 mb-1">Memory</h4>
+                                        <p className="text-sm font-medium">{selectedServer.ram}</p>
+                                    </div>
+                                </div>
+
+                                {/* 스토리지 정보 */}
+                                <div className="p-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50">
+                                    <h4 className="text-xs text-zinc-400 mb-2">Storage</h4>
+                                    <div className="space-y-1.5">
+                                        {selectedServer.storage.map((drive, index) => (
+                                            <div key={index} className="flex items-center justify-between">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-sm font-medium">
+                                                        {drive.type} {drive.size}
+                                                    </span>
+                                                    <span className="text-xs text-zinc-500">({drive.model})</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* 네트워크 구성 */}
+                                <div className="space-y-3">
+                                    <div className="p-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50">
+                                        <h4 className="text-xs text-zinc-400 mb-2">Network Configuration</h4>
+                                        <div className="space-y-2">
+                                            <div>
+                                                <p className="text-xs text-zinc-400 mb-1">Upstreams</p>
+                                                <div className="flex flex-wrap gap-1">
+                                                    {selectedServer.network.upstreams.map((upstream, index) => (
+                                                        <span key={index} className="text-xs px-2 py-0.5 rounded-full bg-zinc-700/50 border border-zinc-600/50">
+                                                            {upstream}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p className="text-xs text-zinc-400 mb-1">Internet Exchanges</p>
+                                                <div className="flex flex-wrap gap-1">
+                                                    {selectedServer.network.ixs.map((ix, index) => (
+                                                        <span key={index} className="text-xs px-2 py-0.5 rounded-full bg-zinc-700/50 border border-zinc-600/50">
+                                                            {ix}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* 업타임과 네트워크 사용량 */}
+                                <div className="grid grid-cols-2 gap-2">
+                                    <div className="p-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50">
+                                        <h4 className="text-xs text-zinc-400 mb-1">System Uptime</h4>
+                                        <div className="flex items-baseline gap-1">
+                                            <span className="text-lg font-bold tabular-nums">{selectedServer.uptime}%</span>
+                                            <span className="text-xs text-zinc-500">/ 30d</span>
+                                        </div>
+                                        <p className="text-xs text-zinc-500 mt-1">1h 23m downtime</p>
+                                    </div>
+                                    <div className="p-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50">
+                                        <h4 className="text-xs text-zinc-400 mb-1">Network Usage</h4>
+                                        <div className="flex items-baseline gap-1">
+                                            <span className="text-lg font-bold tabular-nums">
+                                                {(selectedServer.networkUsage[selectedServer.networkUsage.length - 1] / 10).toFixed(1)}
+                                            </span>
+                                            <span className="text-xs font-medium">Gbps</span>
+                                        </div>
+                                        <p className="text-xs text-zinc-500 mt-1">
+                                            Peak: {(Math.max(...selectedServer.networkUsage) / 10).toFixed(1)} Gbps
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* 데스크톱: 기존 레이아웃 유지 */}
+                <div className="hidden md:flex gap-6">
                     <div className={`space-y-3 transition-all duration-300 ${selectedServer ? "w-1/3" : "w-full"}`}>
                         {servers.map((server) => (
                             <button

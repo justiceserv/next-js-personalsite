@@ -77,8 +77,11 @@ const HeroSection = () => {
 
   return (
     <div className="relative bg-zinc-950">
-      <div className="h-[calc(100vh-16rem)] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-950/95 to-zinc-950/90" />
+      <div className="min-h-[calc(100vh-8rem)] pt-24 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-zinc-950 to-transparent opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/95 to-transparent" />
+        </div>
 
         <div className="relative z-10 container mx-auto px-6 md:px-12 max-w-[1400px]">
           <motion.div
@@ -89,8 +92,10 @@ const HeroSection = () => {
           >
             <div className="md:w-1/2 space-y-4">
               <div className="space-y-2">
-                <h1 className="text-4xl font-bold tracking-tight">Guhyun Chung</h1>
-                <p className="text-base text-zinc-400 font-medium max-w-lg">
+                <h1 className="text-4xl font-bold tracking-tight text-white drop-shadow-lg">
+                  Guhyun Chung
+                </h1>
+                <p className="text-base text-zinc-300 font-medium max-w-lg drop-shadow-lg">
                   Full Stack Developer &amp; Esports General Manager
                 </p>
               </div>

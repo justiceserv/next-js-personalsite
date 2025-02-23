@@ -43,6 +43,7 @@ const ProjectSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const sliderRef = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
 
   // 무한 슬라이드를 위해 앞뒤로 프로젝트 복제
   const extendedProjects = [...projects, ...projects, ...projects]
@@ -61,6 +62,16 @@ const ProjectSection = () => {
       return () => clearTimeout(timer)
     }
   }, [isTransitioning, currentIndex])
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const slideProjects = (direction: "next" | "prev") => {
     if (isTransitioning) return
@@ -84,7 +95,8 @@ const ProjectSection = () => {
             href="/projects"
             className="group flex items-center gap-2 text-sm font-medium text-zinc-400 hover:text-white transition-colors"
           >
-            View All Projects
+            <span className="md:hidden">View All</span>
+            <span className="hidden md:inline">View All Projects</span>
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
@@ -95,13 +107,13 @@ const ProjectSection = () => {
               ref={sliderRef}
               className="flex transition-transform duration-500 ease-in-out"
               style={{
-                transform: `translateX(-${(currentIndex + projects.length) * 33.333}%)`,
+                transform: `translateX(-${(currentIndex + projects.length) * (isMobile ? 100 : 33.333)}%)`,
               }}
             >
               {extendedProjects.map((project, index) => (
                 <div 
                   key={index} 
-                  className="w-1/3 flex-shrink-0 px-3"
+                  className="w-full md:w-1/3 flex-shrink-0 px-3"
                 >
                   <a
                     href={project.link}

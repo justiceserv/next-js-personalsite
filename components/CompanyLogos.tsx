@@ -62,9 +62,9 @@ const CompanyLogos = () => {
   ]
 
   return (
-    <section className="relative bg-zinc-950/50 py-14">
-      <div className="container mx-auto px-6 md:px-12 max-w-[1400px] pt-0 pb-32">
-        <h3 className="text-sm font-medium mb-12 text-center text-white">Worked With</h3>
+    <section className="relative bg-zinc-950/50 py-8 md:py-14">
+      <div className="container mx-auto px-6 md:px-12 max-w-[1400px] pt-0 pb-8 md:pb-32">
+        <h3 className="text-sm font-medium mb-8 text-center text-white">Worked With</h3>
         <div className="relative">
           {/* Left gradient overlay */}
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-zinc-950 to-transparent z-10" />

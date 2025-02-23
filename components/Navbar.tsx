@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Search, Github, Linkedin } from "lucide-react"
+import MobileNav from "./MobileNav"
 
 const Logo = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-white">
@@ -39,28 +40,30 @@ const Navbar = () => {
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
       <div className={`
-        transition-all duration-300 ease-in-out
-        ${isScrolled ? "container mx-auto px-6 md:px-12 max-w-[1400px]" : "w-full"}
+        w-full
+        ${isScrolled ? "md:container md:mx-auto md:max-w-[1400px]" : ""}
       `}>
-        <div
-          className={`
-            transition-all duration-300 ease-in-out
-            ${isScrolled ? "mt-2 bg-zinc-950/80 backdrop-blur-md shadow-lg rounded-lg" : "bg-zinc-950"}
-            border-b border-zinc-800/50
-          `}
-        >
+        <div className={`
+          transition-all duration-300 ease-in-out
+          ${isScrolled 
+            ? "md:mt-2 md:bg-zinc-950/80 md:backdrop-blur-md md:shadow-lg md:rounded-lg bg-zinc-950" 
+            : "bg-zinc-950"
+          }
+          border-b border-zinc-800/50
+        `}>
           <nav className={`
-            transition-all duration-300 ease-in-out
-            ${isScrolled ? "px-6 md:px-12" : "container mx-auto px-6 md:px-12 max-w-[1400px]"}
+            px-6
+            ${isScrolled 
+              ? "md:px-6 md:px-12" 
+              : "md:container md:mx-auto md:px-12 md:max-w-[1400px]"
+            }
           `}>
             <div className="flex h-12 items-center justify-between">
               <div className="flex items-center">
-                {/* Logo */}
                 <Link href="/" className="flex items-center mr-6">
                   <Logo />
                 </Link>
 
-                {/* Navigation Links */}
                 <div className="hidden md:flex space-x-1">
                   {navItems.map((item) => (
                     <Link
@@ -77,59 +80,46 @@ const Navbar = () => {
                 </div>
               </div>
 
-              {/* Right side items */}
-              <div className="flex items-center space-x-2">
-                {/* Search Bar */}
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className={`
-                      h-7 bg-zinc-900 text-[13px] font-normal rounded-md pl-3 pr-8
-                      border border-zinc-800 focus:border-primary-400 focus:outline-none
-                      transition-all duration-300 ease-in-out
-                      ${isSearchFocused ? "w-48" : "w-28"}
-                    `}
-                    onFocus={() => setIsSearchFocused(true)}
-                    onBlur={() => setIsSearchFocused(false)}
-                  />
-                  <Search className="absolute right-2 top-1.5 h-4 w-4 text-zinc-400" />
-                </div>
-
-                {/* Social Links */}
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center h-7 w-7 rounded-md border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 transition-colors"
-                >
-                  <Github className="h-4 w-4" />
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center h-7 w-7 rounded-md border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 transition-colors"
-                >
-                  <Linkedin className="h-4 w-4" />
-                </a>
-
-                {/* Login Button */}
-                <button
-                  className="group h-7 px-4 text-[13px] font-medium rounded-md 
-                             bg-blue-600 border border-blue-600
-                             hover:bg-zinc-900 hover:border-zinc-700
-                             transition-all duration-200 ease-in-out"
-                >
-                  <span
-                    className="bg-clip-text text-transparent 
-                                   bg-gradient-to-r from-white to-white
-                                   group-hover:from-blue-400 group-hover:to-blue-600
-                                   transition-all duration-200 ease-in-out"
+              <div className="flex items-center space-x-3">
+                <div className="hidden md:flex items-center space-x-3">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      className={`
+                        h-7 bg-zinc-900 text-[13px] font-normal rounded-md pl-3 pr-8
+                        border border-zinc-800 focus:border-primary-400 focus:outline-none
+                        transition-all duration-300 ease-in-out
+                        ${isSearchFocused ? "w-48" : "w-28"}
+                      `}
+                      onFocus={() => setIsSearchFocused(true)}
+                      onBlur={() => setIsSearchFocused(false)}
+                    />
+                    <Search className="absolute right-2 top-1.5 h-4 w-4 text-zinc-400" />
+                  </div>
+                  <a
+                    href="https://github.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center h-7 w-7 rounded-md border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 transition-colors"
                   >
-                    Login
-                  </span>
-                </button>
+                    <Github className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="https://linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center h-7 w-7 rounded-md border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-500 transition-colors"
+                  >
+                    <Linkedin className="h-4 w-4" />
+                  </a>
+                  <button className="group h-7 px-4 text-[13px] font-medium rounded-md bg-blue-600 border border-blue-600 hover:bg-zinc-900 hover:border-zinc-700 transition-all duration-200 ease-in-out">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white group-hover:from-blue-400 group-hover:to-blue-600 transition-all duration-200 ease-in-out">
+                      Login
+                    </span>
+                  </button>
+                </div>
+                <MobileNav navItems={navItems} />
               </div>
             </div>
           </nav>
@@ -140,4 +130,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-

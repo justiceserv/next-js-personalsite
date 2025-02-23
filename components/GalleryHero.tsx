@@ -22,17 +22,17 @@ const GalleryHero = () => {
   }, [])
 
   return (
-    <section className="relative h-[55vh] min-h-[500px] overflow-hidden pt-16">
+    <section className="relative pt-24 md:pt-32 pb-8 md:pb-16">
       {/* 오버레이 - 배경색상만 유지 */}
       <div className="absolute inset-0 bg-zinc-950" />
 
       {/* 콘텐츠 */}
       <div className="relative h-full">
-        <div className="container mx-auto px-6 md:px-12 max-w-[1400px] h-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 h-full gap-8 items-center">
+        <div className="container mx-auto px-6 md:px-12 max-w-[1400px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             {/* 왼쪽: 텍스트 */}
-            <div className="space-y-4">
-              <div className="space-y-3">
+            <div className="space-y-6">
+              <div className="space-y-4">
                 <h1 className="text-3xl md:text-5xl font-bold tracking-tight">
                   My Photographs
                 </h1>
@@ -51,31 +51,47 @@ const GalleryHero = () => {
               </div>
             </div>
 
-            {/* 오른쪽: 사진 스택 */}
-            <div className="relative h-[350px] w-full max-w-[400px] mx-auto pb-12">
-              {photos.map((photo, index) => (
-                <div
-                  key={index}
-                  className={`absolute inset-0 transition-all duration-500 ease-in-out
-                    ${index === currentPhotoIndex ? "opacity-100 translate-y-0 rotate-0" : 
-                      index < currentPhotoIndex ? "opacity-0 -translate-y-full rotate-12" : 
-                      "opacity-100 translate-y-6 rotate-3"}`}
-                  style={{
-                    zIndex: photos.length - index,
-                  }}
-                >
-                  <div className="relative h-full w-full rounded-lg overflow-hidden border border-zinc-800">
+            {/* 오른쪽: 사진 */}
+            <div className="flex justify-center items-center">
+              <div className="relative h-[300px] w-full max-w-[500px]">
+                {/* 데스크톱 스택 효과 */}
+                <div className="hidden md:block relative h-full">
+                  {photos.map((photo, index) => (
+                    <div
+                      key={index}
+                      className={`absolute inset-0 transition-all duration-500 ease-in-out
+                        ${index === currentPhotoIndex ? "opacity-100 translate-y-0 rotate-0" : 
+                          index < currentPhotoIndex ? "opacity-0 -translate-y-full rotate-12" : 
+                          "opacity-100 translate-y-6 rotate-3"}`}
+                      style={{ zIndex: photos.length - index }}
+                    >
+                      <div className="relative h-full w-full rounded-lg overflow-hidden border border-zinc-800">
+                        <Image
+                          src={photo}
+                          alt={`Gallery photo ${index + 1}`}
+                          fill
+                          className="object-cover"
+                          priority={index === 0}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-zinc-950/30" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* 모바일 슬라이드 */}
+                <div className="md:hidden relative h-full">
+                  <div className="relative h-full w-full rounded-xl overflow-hidden border border-zinc-800">
                     <Image
-                      src={photo}
-                      alt={`Gallery photo ${index + 1}`}
+                      src={photos[currentPhotoIndex]}
+                      alt={`Gallery photo ${currentPhotoIndex + 1}`}
                       fill
-                      className="object-cover brightness-100"
-                      priority={index === 0}
+                      className="object-cover"
+                      priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-transparent to-zinc-950/30" />
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>

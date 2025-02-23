@@ -70,7 +70,32 @@ const GearSection = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        {/* 모바일: 가로 스크롤 */}
+        <div className="md:hidden overflow-x-auto pb-4 -mx-6 px-6">
+          <div className="flex gap-3">
+            {gearSetups.map((setup) => (
+              <button
+                key={setup.id}
+                onClick={() => setSelectedSetup(setup)}
+                className="group p-4 rounded-lg bg-zinc-900/30 border border-zinc-800 hover:border-zinc-700 
+                  transition-all duration-200 text-left flex-shrink-0 w-[280px]"
+              >
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Camera className="w-4 h-4 text-zinc-500" />
+                    <span className="text-xs text-zinc-400">{setup.items.length} items</span>
+                  </div>
+                  <h3 className="text-base font-medium group-hover:text-blue-400 transition-colors">
+                    {setup.title}
+                  </h3>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* 데스크톱: 그리드 (기존 유지) */}
+        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-3">
           {gearSetups.map((setup) => (
             <button
               key={setup.id}

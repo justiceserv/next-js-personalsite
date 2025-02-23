@@ -32,9 +32,9 @@ interface PhotoModalProps {
 const PhotoModal = ({ photo, isOpen, onClose }: PhotoModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl bg-zinc-900/95 border-zinc-800 backdrop-blur-lg p-0 overflow-hidden">
+      <DialogContent className="max-w-5xl bg-zinc-900/95 border-zinc-800 backdrop-blur-lg p-0 overflow-hidden max-h-[90vh] md:max-h-none overflow-y-auto">
         {/* 이미지 섹션 */}
-        <div className="relative h-[600px] overflow-hidden">
+        <div className="relative h-[300px] md:h-[600px] overflow-hidden">
           <Image 
             src={photo.image || "/placeholder.svg"} 
             alt={photo.title} 
@@ -43,51 +43,51 @@ const PhotoModal = ({ photo, isOpen, onClose }: PhotoModalProps) => {
             priority 
           />
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 via-zinc-900/20 to-transparent" />
-          <div className="absolute bottom-8 left-8 space-y-2 max-w-2xl">
-            <h2 className="text-2xl font-semibold text-white">{photo.title}</h2>
-            <p className="text-sm text-zinc-300">{photo.description}</p>
+          <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 space-y-2 max-w-2xl">
+            <h2 className="text-xl md:text-2xl font-semibold text-white">{photo.title}</h2>
+            <p className="text-xs md:text-sm text-zinc-300">{photo.description}</p>
           </div>
         </div>
 
-        <div className="p-8 pt-6 space-y-7">
+        <div className="p-4 md:p-8 md:pt-6 space-y-4 md:space-y-7">
           {/* 메타데이터 */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-3 rounded-lg bg-zinc-800/30 border border-zinc-700/30 backdrop-blur-sm">
-              <div className="text-sm text-zinc-400">Camera</div>
-              <div className="font-medium">{photo.camera}</div>
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-4">
+            <div className="p-2 md:p-3 rounded-lg bg-zinc-800/30 border border-zinc-700/30 backdrop-blur-sm">
+              <div className="text-xs md:text-sm text-zinc-400">Camera</div>
+              <div className="text-sm md:text-base font-medium">{photo.camera}</div>
             </div>
-            <div className="p-3 rounded-lg bg-zinc-800/30 border border-zinc-700/30 backdrop-blur-sm">
-              <div className="text-sm text-zinc-400">Lens</div>
-              <div className="font-medium">{photo.lens}</div>
+            <div className="p-2 md:p-3 rounded-lg bg-zinc-800/30 border border-zinc-700/30 backdrop-blur-sm">
+              <div className="text-xs md:text-sm text-zinc-400">Lens</div>
+              <div className="text-sm md:text-base font-medium">{photo.lens}</div>
             </div>
-            <div className="p-3 rounded-lg bg-zinc-800/30 border border-zinc-700/30 backdrop-blur-sm">
-              <div className="text-sm text-zinc-400">Location</div>
-              <div className="font-medium">{photo.location}</div>
+            <div className="p-2 md:p-3 rounded-lg bg-zinc-800/30 border border-zinc-700/30 backdrop-blur-sm">
+              <div className="text-xs md:text-sm text-zinc-400">Location</div>
+              <div className="text-sm md:text-base font-medium">{photo.location}</div>
             </div>
-            <div className="p-3 rounded-lg bg-zinc-800/30 border border-zinc-700/30 backdrop-blur-sm">
-              <div className="text-sm text-zinc-400">Post-processing</div>
-              <div className="font-medium">{photo.postProcessing}</div>
+            <div className="p-2 md:p-3 rounded-lg bg-zinc-800/30 border border-zinc-700/30 backdrop-blur-sm">
+              <div className="text-xs md:text-sm text-zinc-400">Post-processing</div>
+              <div className="text-sm md:text-base font-medium">{photo.postProcessing}</div>
             </div>
           </div>
 
           {/* 다운로드 버튼 */}
-          <div className="flex gap-4">
+          <div className="flex gap-2 md:gap-4">
             <Button 
               variant="outline" 
-              className="flex-1 py-2 bg-zinc-800/30 border-zinc-700/30 hover:bg-blue-500/10 hover:border-blue-500/30 
+              className="flex-1 py-1.5 md:py-2 text-sm md:text-base bg-zinc-800/30 border-zinc-700/30 hover:bg-blue-500/10 hover:border-blue-500/30 
                 hover:text-blue-400 transition-all duration-200"
               onClick={() => window.open(photo.jpegUrl, "_blank")}
             >
-              <Download className="w-4 h-4 mr-2" />
+              <Download className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
               Download JPEG
             </Button>
             <Button 
               variant="outline"
-              className="flex-1 py-3 bg-zinc-800/30 border-zinc-700/30 hover:bg-emerald-500/10 hover:border-emerald-500/30 
+              className="flex-1 py-1.5 md:py-2 text-sm md:text-base bg-zinc-800/30 border-zinc-700/30 hover:bg-emerald-500/10 hover:border-emerald-500/30 
                 hover:text-emerald-400 transition-all duration-200"
               onClick={() => window.open(photo.rawUrl, "_blank")}
             >
-              <Download className="w-4 h-4 mr-2" />
+              <Download className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
               Download RAW
             </Button>
           </div>
@@ -109,7 +109,9 @@ const PhotoGallery = () => {
             <p className="text-sm text-zinc-400">A collection of my favorite shots</p>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+        {/* 모바일: 한 줄에 하나씩 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {photos.map((photo) => (
             <button
               key={photo.id}

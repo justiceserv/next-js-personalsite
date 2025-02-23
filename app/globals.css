@@ -106,3 +106,38 @@ spline-viewer iframe::before {
   opacity: 0 !important;
   visibility: hidden !important;
 }
+
+/* Contributions 그리드 스타일링 */
+@media (max-width: 768px) {
+  .contributions-grid {
+    display: grid !important;
+    grid-template-columns: repeat(26, 10px) !important;
+    gap: 4px !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+  
+  .contributions-grid > div {
+    gap: 4px !important;
+  }
+}
+
+/* 더 작은 화면에서는 3줄로 표시 */
+@media (max-width: 480px) {
+  .contributions-grid {
+    grid-template-columns: repeat(18, 10px) !important;
+  }
+}
+
+/* Contributions 섹션 여백 조정 */
+.contributions-section {
+  margin-top: 1rem !important;
+  margin-bottom: 2rem !important;
+}
+
+@media (min-width: 769px) {
+  .contributions-section {
+    margin-top: 2rem !important;
+    margin-bottom: 4rem !important;
+  }
+}
